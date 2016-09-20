@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Band | FirstBourne</title>
+<meta name="description" content="FIRSTBOURNE - FirstBourne is a five piece arena rock/power metal band from Boston, MA. Specializing in captivating hooks and masterful musicianship, guitarist Mike Kerr, vocalist Adrienne Cowan, and bassist Ven Thangaraj teamed up with Sony Brazil’s producer and guitarist Jimmy Olivera to create their debut full length, “Riot”. ">
+<meta name="keywords" content="FIRSTBOURNE, music, band, guitarist Mike Kerr, vocalist Adrienne Cowan, bassist Ven Thangaraj, Drummer Chris Dovas, Riot, Arena Rock, Power Metal">
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/iconmoon.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<link href="assets/css/menu.css" rel="stylesheet">
+<link href="assets/css/color.css" rel="stylesheet">
+<link href="assets/css/widget.css" rel="stylesheet">
+<link href="assets/css/browser-detect.css" rel="stylesheet">
+<link href="assets/css/responsive.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+<script>
+$(window).load(function() {
+//http://codepen.io/juanv/pen/gbgjLe
+//Use the code as you want, just replace the access tokens, I don't mind, but it would be
+//better if you use your own because I might delete the tokens and the code might no longer work.
+//The Twitter and Vine counter require PHP, all other counters only use jQuery.
+//PHP code that was used to get Vine followers is at the bottom of the page
+//The Twitter counter requires two PHP files, I left some references so you can download those PHP files
+//Instagram counter will only work with your access token, my access token only allows me to retrieve information from my profile
+//This is not a plugin, this is just to show you how easy it is to retrieve data from APIs...
+
+//Get Usernames
+var facebook = 'firstbourneband';
+var instagram = 'firstbourneband';
+var youtube = 'FirstBourneBand';
+var twitter = 'FirstBourneBand';
+
+
+//Facebook API
+//60 Day Access Token - Regenerate a new one after two months
+//https://neosmart-stream.de/facebook/how-to-create-a-facebook-access-token/
+//https://smashballoon.com/custom-facebook-feed/access-token/
+var token = "1627334644211864|3_tGe7MNSzumVcKxMyJUTqZAlz4";
+$.ajax({
+  url: 'https://graph.facebook.com/'+facebook,
+  dataType: 'json',
+  type: 'GET',
+  data: {
+    access_token:token,
+    fields:'likes'
+  },
+  success: function(data) {   
+    var followers = parseInt(data.likes);
+    var k = kFormatter(followers);console.log(k);
+    $('.facebookcount').append(k); 
+    getTotal(followers); 
+  } 
+}); 
+
+
+
+//Twitter API - Requires PHP.
+//References
+//http://stackoverflow.com/questions/17409227/follower-count-number-in-twitter
+//https://github.com/J7mbo/twitter-api-php
+
+$.ajax({
+  url: 'http://54.234.184.25/twitter/index.php',
+  dataType: 'json',
+  type: 'GET',
+  data:{
+    user:twitter
+  },
+  success: function(data) {   
+    var followers = parseInt(data.followers);
+    $('.twittercount').append(followers).digits(); 
+    //getTotal(followers); 
+  } 
+}); 
+
+
+//Function to add commas to the thousandths
+$.fn.digits = function(){ 
+  return this.each(function(){ 
+    $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+  })
+}
+});
+//Function to add K to thousands
+function kFormatter(num) {
+  return num;
+}
+//Total Counter
+var total = 0;
+//Get an integer paramenter from each ajax call
+function getTotal(data) {
+  total = total + data;
+  $("#total").html(total).digits();
+  $("#total_k").html(kFormatter(total));
+}
+
+//PHP Code for Vine API
+/*
+<?php
+header('Access-Control-Allow-Origin: *'); 
+$vine_username = $_GET['user'];
+$json = file_get_contents('https://api.vineapp.com/users/search/'.$vine_username);
+$obj = json_decode($json,true);
+$followers_count = $obj['data']['records'][0]['followerCount'];
+$json_array = array('followers'=>$followers_count);
+echo json_encode($json_array);
+?>
+*/
+</script>
+<style>
+.px-blog.mesonery .px-media{width:100%}
+</style>
+<!-- <link href="assets/css/rtl.css" rel="stylesheet"> Uncomment it if needed! -->
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper"> 
+	<!-- Header Start -->
+<header id="header">
+    <div class="container">
+      <div class="row">
+        <div class="logo">
+          <a href="home.html"><img src="assets/images/logo.png" alt="" /></a>
+        </div>
+        <div class="px-header-right">
+          <div class="navigation">
+            <ul>
+              <li><a href='home.html'>Home</a></li>
+              <li class="active"><a href='band.html'>The Band</a></li>
+              <li><a href='album-listing.html'>Albums </a></li>
+              <li><a href='event-list.html'>Events</a></li>
+			  <li><a href='gallery.html'>Gallery</a></li>
+		      <li><a href='https://firstbournetest.myshopify.com/collections/all' target="_blank">Shop</a></li>
+              <li><a href='contact-us.html'>CONTACT</a></li>
+            </ul>
+          </div>
+          <div class="px-share"> <a href="#"><i class="icon-share2"></i></a>
+            <ul>
+              <li><a href="https://www.facebook.com/firstbourneband" target="_blank" data-original-title="facebook"><i class="icon-facebook-square"></i></a></li>
+              <li><a href="https://www.twitter.com/firstbourneband" target="_blank" data-original-title="twitter"><i class="icon-twitter2"></i></a></li>
+              <li><a href="https://www.instagram.com/firstbourneband" target="_blank" data-original-title="instagram"><i class="icon-instagram"></i></a></li>
+              <li><a href="https://www.youtube.com/channel/UCv8ELG4mPHpZEJqLlz33MMQ" target="_blank" data-original-title="youtube"><i class="icon-youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Header End -->
+  <!-- Bredcrumb -->
+  <div class="breadcrumb-sec align-left" style="background:url(assets/extra-images/subheader1.jpg) no-repeat; min-height:179px;">
+    <div class="container">
+    <div class="px-table">
+      <div class="px-tablerow">
+        <div class="px-pageinfo">
+          <h2>Our Band</h2>
+          <span>Hard Rock/Metal</span>
+        </div>
+        <div class="breadcrumbs">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li class="active">The Band</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+   <!-- Bredcrumb End -->  
+  <!-- Main Start -->
+  <div id="main">
+  <section>
+      <div class="container">
+        <div class="row">
+          <section class="px-about-text align-center">
+            <div class="col-md-12">
+              <div class="px-fancy-heading align-center">
+                <div class="px-spreater2">
+                  <div class="divider"> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> </div>
+                </div>
+                <h2>Our Band</h2>
+                <p>a.	FirstBourne is a five piece arena rock/power metal band from Boston, MA. Specializing in captivating hooks and masterful musicianship, guitarist Mike Kerr, vocalist Adrienne Cowan, and bassist Ven Thangaraj teamed up with Sony Brazil’s producer and guitarist Jimmy Olivera to create their debut full length, “Riot”. Drummer Chris Dovas joined shortly after, adding to the ranks of Berklee-trained and award-winning musicians</p>
+              </div>
+              <p>FB members draw influences from an era of Area Oriented Rock/Metal where musicianship, appearance and good songwriting took center stage. While rock and metal today has a wide set of genres and sub-genres, FB writes music to appeal to a broad range of listeners. As such, songs are written with simple, understandable structures, singable melodies, meaningful lyrics, catchy hooks, and motivational tempos all produced by Jimmy, who produces dozens of artists for Sony yearly.</p>
+			  <p>Songs are not overdone, overproduced and do not force an onslaught of notes at breakneck tempo on the listener. </p>
+             </div>
+          </section>
+          
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="row">
+          <section class="px-blog mesonery">
+            <div class="col-md-12">
+              <div class="row">
+			<div class="px-blog masnery mas-isotope">
+              <article class="col-md-3">
+                <div class="holder">
+                  <div class="px-media">
+                    <figure> <img src="assets/extra-images/band-img-1.jpg" alt="">
+                      <figcaption> <a href="#."></a> </figcaption>
+                    </figure>
+                  </div>
+                 <div class="description">
+                    <div class="text">
+                      <div class="post-option">
+                        <h5>ADRIENNE COWAN</h5>
+						<div class=px-time>VOCALS</div>
+                      </div>
+                      <p>Adrienne Cowan is a Berklee-trained, composer, and orchestrator. Equal parts eccentric Jack Sparrow and poignant nostalgia, she touches heavily on escapism as well as expressing a distantly romantic outlook on death, solo voyages, love,... </p>
+                      <div class="read-more">
+                        <ul>
+                          <li><a href="andrienne.html" class="px-read">Read More</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+          
+			  <article class="col-md-3">
+                <div class="holder">
+                  <div class="px-media">
+                    <figure><img src="assets/extra-images/band-img-2.jpg" alt="">
+                      <figcaption> <a href="#."></a> </figcaption>
+                    </figure>
+                  </div>
+                  <div class="description">
+                    <div class="text">
+                      <div class="post-option">
+                        <h5>MIKE KERR</h5>
+						<div class=px-time>GUITAR</div>
+                      </div>
+                      <p>Mike Kerr is a Brazilian guitarist and composer, who now resides in the United States. Mike is establishing himself as a promising guitarist. His technique is outstanding.  He had access to the knowledge of the great masters of guitar such as Joe...</p>
+                      <div class="read-more">
+                        <ul>
+                          <li><a href="mike-kerr.html" class="px-read">Read More</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="col-md-3">
+                <div class="holder">
+                  <div class="px-media">
+                    <figure> <img src="assets/extra-images/band-img-3.jpg" alt="">
+                      <figcaption> <a href="#."></a> </figcaption>
+                    </figure>
+                  </div>
+                  <div class="description">
+                    <div class="text">
+                      <div class="post-option">
+                        <h5>VEN THANGARAJ</h5>
+						<div class=px-time>BASS</div>
+                      </div>
+                      <p>Born in India, Ven plays bass in the Mike Kerr Group. Ven started learning guitar after watching Iron Maiden’s Wasted Years video. Past musical projects include Frayed Ends, Troops of Doom, and Blood Of My Enemy.  Ven is a key member of Vivid Amplifiers ...</p>
+                      <div class="read-more">
+                        <ul>
+                          <li><a href="ven.html" class="px-read">Read More</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="col-md-3">
+                <div class="holder">
+                  <div class="px-media">
+                    <figure> <img src="assets/extra-images/band-img-4.jpg" alt="">
+                      <figcaption> <a href="#."></a> </figcaption>
+                    </figure>
+                  </div>
+                  <div class="description">
+                    <div class="text">
+                      <div class="post-option">
+                        <h5>Chris Dovas</h5>
+						<div class=px-time>DRUMMER</div>
+                      </div>
+                      <p>I grew up in a very small town in New Hampshire (USA) called Goffstown. I started playing drums when I was 5 years old. My first big drumming inspiration was Tommy Aldridge. I wanted to play like him because of the way he made me feel when he played his...</p>
+                      <div class="read-more">
+                        <ul>
+                          <li><a href="chris.html" class="px-read">Read More</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+              </div>
+            </div>
+          </section>
+		  
+        </div>
+      </div>
+    </section>
+	<section>
+		   <section class="px-counter simple">
+				<div class="container">
+				  <div class="row">
+					<article class="col-md-3">
+					  <figure> <i class="icon-vynil"></i> </figure>
+					  <div class="text"> <a class="px-numcount custom-counter" href="#">24</a> <span>Live Performences</span> </div>
+					</article>
+					<article class="col-md-3">
+					  <figure> <i class="icon-megaphone4"></i> </figure>
+					  <div class="text"> <a class="px-numcount custom-counter" href="#">123</a> <span>Songs Performance</span> </div>
+					</article>
+					<article class="col-md-3">
+					  <figure> <i class="icon-facebook2"></i> </figure>
+					  <div class="text facebook"> <a class="px-numcount custom-counter facebookcount" href="#"> </a> <span>Facebook Likes</span> </div>
+					</article>
+					<article class="col-md-3">
+					  <figure> <i class="icon-twitter2"></i> </figure>
+					  <div class="text twitter"> <a class="px-numcount custom-counter twittercount" href="#"></a> <span>Twitter Followers</span> </div>
+					</article>
+				  </div>
+				</div>
+		  </section>
+		  </section>
+  </div>
+  <!-- Main End --> 
+ <footer id="footer">
+		<div class="container">
+			<div class="row">
+				<aside class="widget widget-contact col-md-3">
+					<div class="widget-section-title">
+						<h6>For Booking</h6>
+					</div>
+					<ul>
+						<li>
+							<i class=" icon-map5"></i>
+							<P>FirstBourne <br>i.	464 Common St, Suite 133, <br>Belmont, MA</P>	
+						</li>
+						<li>
+							<i class="icon-envelope4"></i>
+							<P><span>Email</span>: vthangaraj@comcast.net</P>	
+						</li>
+
+					</ul>
+				</aside>
+				<aside class="widget widget-categories col-md-3">
+					<div class="widget-section-title">
+						<h6>Quick Links</h6>
+					</div>
+					<ul>
+					  <li><a href='home.html'>Home</a></li>
+					  <li><a href='band.html'>The Band</a></li>
+					  <li><a href='album-listing.html'>Albums </a></li>
+					  <li><a href='event-list.html'>Events</a></li>
+					  <li><a href='gallery.html'>Gallery</a></li>
+					  <li><a href='contact-us.html'>Contact</a></li>
+					</ul>
+				</aside>
+				<aside class="widget widget-newsletter col-md-6">
+					<div class="widget-section-title">
+						<h6>Signup for Newsletter</h6>
+					</div>
+					<div class="newsletter-flied">
+						<p>Sign up for our mailing list to receive the latest News, Tour Dates, Exclusive Events, Merchandise and Videos from FirstBourne!</p>
+						<form>
+							<label><input type="text" required placeholder="Enter your valid email address"></label>
+							<input type="submit" value="Signup">
+						</form>
+						<span class="error"><i class="icon-info7"></i>Dont't worry, we won't spam you. You will be able to unsubcribe with a sigle mouse click.</span>
+					</div>
+				</aside>
+			</div>
+		</div>
+		<section id="copyright">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="social-media">
+							<ul>
+							    <li class="col-md-3">
+								    <a href="https://www.facebook.com/firstbourneband " target="_blank" data-original="facebook">
+								    <i class="icon-facebook9"></i>
+									<span>Facebook</span>
+								    </a>
+							    </li>
+							    <li class="col-md-3">
+								    <a href="https://www.twitter.com/firstbourneband" target="_blank" data-original="twitter">
+								    <i class="icon-twitter6"></i>
+									<span>Twitter</span>
+								    </a>
+							    </li>
+							    <li class="col-md-3">
+								    <a href="https://www.youtube.com/channel/UCv8ELG4mPHpZEJqLlz33MMQ" target="_blank" data-original="soundcloud">
+								    <i class="icon-youtube"></i>
+									<span>Youtube</span>
+								    </a>
+							    </li>
+							    <li class="col-md-3">
+								    <a href="https://www.instagram.com/firstbourneband" target="_blank" data-original="spotify">
+								    <i class="icon-instagram"></i>
+									<span>Instagram</span>
+								    </a>
+							    </li>
+							</ul>
+						</div>
+						<p>©2016 FirstBourne All rights reserved. </p>
+					</div>
+				</div>
+			</div>
+		</section> 
+	</footer>
+	<!-- Footer End --> 
+</div>
+
+<script src="assets/scripts/modernizr.min.js"></script> 
+<script src="assets/scripts/bootstrap.min.js"></script> 
+<script src="assets/scripts/browser-detect.js"></script> 
+<script src="assets/scripts/selectFx.html"></script> 
+<script src="assets/scripts/menu.js"></script>
+<script src="assets/scripts/jquery.flexslider.js"></script> 
+<script src="assets/scripts/jquery.countdown.js"></script> 
+<script src="assets/scripts/jquery.matchHeight.html"></script>
+<script src="assets/scripts/slick-min.html"></script>
+<script src="assets/scripts/slick.js"></script> 
+<script src="assets/scripts/counter.js"></script> 
+<!-- Put all Functions in functions.js --> 
+<script src="assets/scripts/functions.js"></script>
+
+</body>
+</html>
